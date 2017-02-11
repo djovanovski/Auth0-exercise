@@ -1,0 +1,6 @@
+framework module Pods_Auth0_exerecise {
+  umbrella header "Pods-Auth0-exerecise-umbrella.h"
+
+  export *
+  module * { export * }
+}

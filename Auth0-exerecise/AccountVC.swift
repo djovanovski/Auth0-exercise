@@ -15,6 +15,7 @@ class AccountVC: UIViewController {
     @IBOutlet weak var imgAvatar: UIImageView!
     @IBOutlet weak var lblText: UILabel!
     var userProfile: Profile!
+    
 
     //MARK: UIViewDelegates
     override func viewDidLoad() {
@@ -40,20 +41,17 @@ class AccountVC: UIViewController {
                 self.imgAvatar.image = UIImage(data: data)
             }
         }).resume()
-        print(userProfile.email!)
-        print(userProfile.name)
-        print(userProfile.createdAt)
-        print(userProfile.familyName as Any)
-        print(userProfile.id)
     }
     
     //MARK: IBActions
     @IBAction func onBtnLogout(_sender: UIButton){
         let alertView = SCLAlertView()
         alertView.addButton("Logout") {
+            let defaults = UserDefaults.standard
+            defaults.removeObject(forKey: "access_token")
             alertView.dismiss(animated: true, completion: nil)
-            self.navigationController!.popToRootViewController(animated: true)
+            self.performSegue(withIdentifier: "segueToNav", sender: self)
         }
-        alertView.showNotice("Logout", subTitle: "Are you sure that you want to logout?",closeButtonTitle: "Close")
+        alertView.showNotice("Logout?", subTitle: "Are you sure that you want to logout?",closeButtonTitle: "Close")
     }
 }

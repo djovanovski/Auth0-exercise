@@ -49,7 +49,6 @@ class LoginVC: UIViewController {
                 .start { result in
                     switch result {
                     case .success(let credentials):
-                        print("access_token: \(credentials.accessToken!)")
                         Auth0
                             .authentication()
                             .userInfo(token: credentials.accessToken!)
@@ -57,12 +56,13 @@ class LoginVC: UIViewController {
                                 switch result {
                                 case .success(let profile):
                                     DispatchQueue.main.async(execute: {
+                                        let defaults = UserDefaults.standard
+                                        defaults.set(credentials.accessToken!, forKey: "access_token")
                                         SVProgressHUD.dismiss()
                                         let controller = self.storyboard?.instantiateViewController(withIdentifier: "AccountVC") as! AccountVC
                                         controller.userProfile = profile
                                         self.navigationController?.pushViewController(controller, animated: true)
                                     })
-                                    print("profile email: \(profile)")
                                 case .failure(let error):
                                     print(error)
                                     DispatchQueue.main.async(execute: {

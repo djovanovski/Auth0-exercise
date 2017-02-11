@@ -16,8 +16,11 @@ class LoginVC: UIViewController {
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
-    
     //MARK: UIViewDelegates
+    override func viewWillAppear(_ animated: Bool) {
+        txtEmail.text = ""
+        txtPassword.text = ""
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.setNavigationBarHidden(false, animated:false)
@@ -46,19 +49,36 @@ class LoginVC: UIViewController {
                 .start { result in
                     switch result {
                     case .success(let credentials):
-                        SVProgressHUD.dismiss()
-                        print("access_token: \(credentials.accessToken)")
+                        print("access_token: \(credentials.accessToken!)")
+                        Auth0
+                            .authentication()
+                            .userInfo(token: credentials.accessToken!)
+                            .start { result in
+                                switch result {
+                                case .success(let profile):
+                                    DispatchQueue.main.async(execute: {
+                                        SVProgressHUD.dismiss()
+                                        let controller = self.storyboard?.instantiateViewController(withIdentifier: "AccountVC") as! AccountVC
+                                        controller.userProfile = profile
+                                        self.navigationController?.pushViewController(controller, animated: true)
+                                    })
+                                    print("profile email: \(profile)")
+                                case .failure(let error):
+                                    print(error)
+                                    DispatchQueue.main.async(execute: {
+                                        SVProgressHUD.dismiss()
+                                        SCLAlertView().showError("Error", subTitle: "\(error)")
+                                    })
+                                }
+                        }
                     case .failure(let error):
                         DispatchQueue.main.async(execute: {
                             SVProgressHUD.dismiss()
                             SCLAlertView().showError("Error", subTitle: "\(error)")
                         })
                         print(error)
-
                     }
-                    
             }
-
     }
     @IBAction func onBtnSignUp(_sender: UIButton){
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "SignupVC") as! SignupVC

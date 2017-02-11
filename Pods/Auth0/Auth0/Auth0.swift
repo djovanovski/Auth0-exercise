@@ -68,8 +68,7 @@ public func authentication(clientId: String, domain: String, session: URLSession
  - important: Calling this method without a valid `Auth0.plist` will crash your application
  */
 public func authentication(session: URLSession = .shared, bundle: Bundle = .main) -> Authentication {
-    let values = plistValues(bundle: bundle)!
-    return authentication(clientId: values.clientId, domain: values.domain, session: session)
+    return authentication(clientId: "PAn11swGbMAVXVDbSCpnITx5Utsxz1co", domain: "mimo-test.auth0.com", session: session)
 }
 
 /**

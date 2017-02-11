@@ -32,5 +32,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+    <key>Auth0ClientId</key>
+    <string>PAn11swGbMAVXVDbSCpnITx5Utsxz1co</string>
+    <key>Auth0Domain</key>
+    <string>mimo-test.auth0.com</string>
 </dict>
 </plist>

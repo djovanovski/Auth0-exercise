@@ -32,7 +32,7 @@ class SafariWebAuth: WebAuth {
     var telemetry: Telemetry
 
     let presenter: ControllerModalPresenter
-    let storage: SessionStorage
+    let storage: TransactionStore
     var logger: Logger?
     var parameters: [String: String] = [:]
     var universalLink = false
@@ -40,10 +40,10 @@ class SafariWebAuth: WebAuth {
     var nonce: String? = nil
 
     convenience init(clientId: String, url: URL, presenter: ControllerModalPresenter = ControllerModalPresenter(), telemetry: Telemetry = Telemetry()) {
-        self.init(clientId: clientId, url: url, presenter: presenter, storage: SessionStorage.sharedInstance, telemetry: telemetry)
+        self.init(clientId: clientId, url: url, presenter: presenter, storage: TransactionStore.shared, telemetry: telemetry)
     }
 
-    init(clientId: String, url: URL, presenter: ControllerModalPresenter, storage: SessionStorage, telemetry: Telemetry) {
+    init(clientId: String, url: URL, presenter: ControllerModalPresenter, storage: TransactionStore, telemetry: Telemetry) {
         self.clientId = clientId
         self.url = url
         self.presenter = presenter
@@ -160,7 +160,7 @@ class SafariWebAuth: WebAuth {
     }
 
     func handler(_ redirectURL: URL) -> OAuth2Grant {
-        if self.responseType.contains([.code]){
+        if self.responseType.contains([.code]) {
             var authentication = Auth0Authentication(clientId: self.clientId, url: self.url, telemetry: self.telemetry)
             authentication.logger = self.logger
             return PKCE(authentication: authentication, redirectURL: redirectURL, reponseType: self.responseType, nonce: self.nonce)
@@ -186,7 +186,7 @@ private func generateDefaultState() -> String? {
     let result = data.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) -> Int in
         return Int(SecRandomCopyBytes(kSecRandomDefault, data.count, bytes))
     }
-    
+
     guard result == 0 else { return nil }
     return data.a0_encodeBase64URLSafe()
 }

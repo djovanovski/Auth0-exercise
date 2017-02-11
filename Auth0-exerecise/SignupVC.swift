@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Auth0
+import SCLAlertView
+import SVProgressHUD
 
 class SignupVC: UIViewController {
 
@@ -17,13 +20,42 @@ class SignupVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.setNavigationBarHidden(false, animated:false)
-        self.navigationController!.navigationBar.barTintColor = UIColor.black
-        self.navigationController!.navigationBar.isTranslucent = false
-        self.navigationItem.title = "LoginVC"
+        self.navigationController?.navigationBar.barTintColor = .black
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationItem.title = "SignupVC"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    //MARK: IBActions
+    @IBAction func onBtnSignup(_sender: UIButton){
+        SVProgressHUD.show()
+        Auth0
+            .authentication()
+            .signUp(
+                email: self.txtEmail.text!,
+                password: self.txtPassword.text!,
+                connection: "Username-Password-Authentication",
+                scope: "openid profile email"
+            )
+            .start { result in
+                switch result {
+                case .success(let credentials):
+                    print("access_token: \(credentials.accessToken)")
+                case .failure(let error):
+                    DispatchQueue.main.async(execute: {
+                        SVProgressHUD.dismiss()
+                        SCLAlertView().showError("Error", subTitle: "\(error)")
+                    })
+                    print(error)
+                    
+                }
+        }
+        
+    }
 }

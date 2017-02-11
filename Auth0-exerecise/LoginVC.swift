@@ -21,13 +21,16 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.setNavigationBarHidden(false, animated:false)
-        self.navigationController!.navigationBar.barTintColor = UIColor.black
-        self.navigationController!.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barTintColor = .black
+        self.navigationController?.navigationBar.tintColor = .white
         self.navigationItem.title = "LoginVC"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     //MARK: IBActions

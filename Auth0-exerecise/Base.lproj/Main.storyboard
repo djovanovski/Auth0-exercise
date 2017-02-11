@@ -47,9 +47,23 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKQ-4e-kFJ">
                                 <rect key="frame" x="81" y="416" width="218" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="LOGIN"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="LOGIN">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="onBtnLoginWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nxd-TQ-jZQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ae-NA-WRW">
+                                <rect key="frame" x="81" y="460" width="218" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="SIGN UP">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onBtnSignUpWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bSh-vA-ZI8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -69,10 +83,10 @@
             </objects>
             <point key="canvasLocation" x="964" y="35.532233883058474"/>
         </scene>
-        <!--View Controller-->
+        <!--SignupVC-->
         <scene sceneID="hDq-Nb-Wla">
             <objects>
-                <viewController id="Kxl-Fv-AFd" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignupVC" id="Kxl-Fv-AFd" customClass="SignupVC" customModule="Auth0_exerecise" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8xV-Fb-qaq"/>
                         <viewControllerLayoutGuide type="bottom" id="QJf-pQ-fMx"/>

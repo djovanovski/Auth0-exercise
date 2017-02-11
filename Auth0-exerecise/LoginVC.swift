@@ -20,11 +20,14 @@ class LoginVC: UIViewController {
     //MARK: UIViewDelegates
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.navigationController!.setNavigationBarHidden(false, animated:false)
+        self.navigationController!.navigationBar.barTintColor = UIColor.black
+        self.navigationController!.navigationBar.isTranslucent = false
+        self.navigationItem.title = "LoginVC"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK: IBActions
@@ -53,6 +56,10 @@ class LoginVC: UIViewController {
                     
             }
 
+    }
+    @IBAction func onBtnSignUp(_sender: UIButton){
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "SignupVC") as! SignupVC
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 
 

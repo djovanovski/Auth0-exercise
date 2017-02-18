@@ -15,6 +15,7 @@
 		0D804FF91E4F9BF20070942D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D804FF81E4F9BF20070942D /* LoginVC.swift */; };
 		0D804FFC1E4FA1680070942D /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D804FFB1E4FA1680070942D /* SignupVC.swift */; };
 		0D804FFF1E4FAC710070942D /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D804FFE1E4FAC710070942D /* AccountVC.swift */; };
+		0DD965441E5885B300C04A47 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD965431E5885B300C04A47 /* Networking.swift */; };
 		701203B8279484271FE16D57 /* Pods_Auth0_exerecise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C44F4BE11C17DB5BDF05E46 /* Pods_Auth0_exerecise.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		0D804FFA1E4F9D170070942D /* Auth0-exerecise-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Auth0-exerecise-Bridging-Header.h"; sourceTree = "<group>"; };
 		0D804FFB1E4FA1680070942D /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		0D804FFE1E4FAC710070942D /* AccountVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
+		0DD965431E5885B300C04A47 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		23B0D797DA65902BF2804D9E /* Pods-Auth0-exerecise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Auth0-exerecise.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Auth0-exerecise/Pods-Auth0-exerecise.debug.xcconfig"; sourceTree = "<group>"; };
 		4C44F4BE11C17DB5BDF05E46 /* Pods_Auth0_exerecise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Auth0_exerecise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C217B2EFC173C3EAC8947E99 /* Pods-Auth0-exerecise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Auth0-exerecise.release.xcconfig"; path = "Pods/Target Support Files/Pods-Auth0-exerecise/Pods-Auth0-exerecise.release.xcconfig"; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		0D71D2671E4F727000CB94F2 /* Auth0-exerecise */ = {
 			isa = PBXGroup;
 			children = (
+				0DD965431E5885B300C04A47 /* Networking.swift */,
 				0D71D2681E4F727000CB94F2 /* AppDelegate.swift */,
 				0D804FF81E4F9BF20070942D /* LoginVC.swift */,
 				0D804FFB1E4FA1680070942D /* SignupVC.swift */,
@@ -234,6 +237,7 @@
 				0D804FFC1E4FA1680070942D /* SignupVC.swift in Sources */,
 				0D804FFF1E4FAC710070942D /* AccountVC.swift in Sources */,
 				0D71D2711E4F727000CB94F2 /* Auth0_exerecise.xcdatamodeld in Sources */,
+				0DD965441E5885B300C04A47 /* Networking.swift in Sources */,
 				0D804FF91E4F9BF20070942D /* LoginVC.swift in Sources */,
 				0D71D2691E4F727000CB94F2 /* AppDelegate.swift in Sources */,
 			);

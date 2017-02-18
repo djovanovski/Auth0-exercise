@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Auth0
 import SVProgressHUD
 import SCLAlertView
 
@@ -21,41 +20,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey: "access_token") as! String!
-        if defaults.object(forKey: "access_token") != nil{
-            SVProgressHUD.show()
-            Auth0
-                .authentication()
-                .userInfo(token: token!)
-                .start { result in
-                    switch result {
-                    case .success(let profile):
-                        DispatchQueue.main.async(execute: {
-                            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                            let controller = mainStoryboard.instantiateViewController(withIdentifier: "AccountVC") as! AccountVC
-                            controller.userProfile = profile
-                            let nav = UINavigationController(rootViewController: controller)
-                            nav.viewControllers = [controller]
-                            self.window!.rootViewController = nav
-                            SVProgressHUD.dismiss()
-
-                        })
-                    case .failure(let error):
-                        print(error)
-                        DispatchQueue.main.async(execute: {
-                            SVProgressHUD.dismiss()
-                            SCLAlertView().showError("Error", subTitle: "\(error)")
-                            // EXPIRE TOKEN SHOULD BE HANDLED HERE
-                        })
-                    }
-            }
-
-            print("ima")
-
-        }
-        else{
-            print("nema")
-        }
         
+        if token != nil{
+            SVProgressHUD.show()
+            let expireDate = defaults.object(forKey: "expires_in") as! Date!
+            let dateNow = Date()
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = mainStoryboard.instantiateViewController(withIdentifier: "AccountVC") as! AccountVC
+            print(dateNow)
+            print(expireDate!)
+            if(dateNow>expireDate!){
+                DispatchQueue.main.async(execute: {
+                    controller.expired = true
+                    let nav = UINavigationController(rootViewController: controller)
+                    nav.viewControllers = [controller]
+                    self.window!.rootViewController = nav
+                    SVProgressHUD.dismiss()
+                })
+            }
+            else{
+                Networking().getUserInfo(success: { (dict) in
+                    print(dict)
+                    SVProgressHUD.dismiss()
+                    DispatchQueue.main.async(execute: {
+                        controller.expired = false
+                        controller.dictProfile = dict as! [String : AnyObject]
+                        let nav = UINavigationController(rootViewController: controller)
+                        nav.viewControllers = [controller]
+                        self.window!.rootViewController = nav
+                        SVProgressHUD.dismiss()
+                    })
+                    
+                }, failed: { (message) in
+                    print(message)
+                    SVProgressHUD.dismiss()
+                })
+            }
+        }
         
         return true
     }

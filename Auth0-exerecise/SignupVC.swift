@@ -7,12 +7,11 @@
 //
 
 import UIKit
-import Auth0
 import SCLAlertView
 import SVProgressHUD
 
 class SignupVC: UIViewController {
-
+    
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
@@ -34,49 +33,42 @@ class SignupVC: UIViewController {
     
     //MARK: IBActions
     @IBAction func onBtnSignup(_sender: UIButton){
-        SVProgressHUD.show()
-        Auth0
-            .authentication()
-            .signUp(
-                email: self.txtEmail.text!,
-                password: self.txtPassword.text!,
-                connection: "Username-Password-Authentication",
-                scope: "openid profile email"
-            )
-            .start { result in
-                switch result {
-                case .success(let credentials):
-                    Auth0
-                        .authentication()
-                        .userInfo(token: credentials.accessToken!)
-                        .start { result in
-                            switch result {
-                            case .success(let profile):
-                                DispatchQueue.main.async(execute: {
-                                    let defaults = UserDefaults.standard
-                                    defaults.set(credentials.accessToken!, forKey: "access_token")
-                                    SVProgressHUD.dismiss()
-                                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "AccountVC") as! AccountVC
-                                    controller.userProfile = profile
-                                    self.navigationController?.pushViewController(controller, animated: true)
-                                })
-                            case .failure(let error):
-                                print(error)
-                                DispatchQueue.main.async(execute: {
-                                    SVProgressHUD.dismiss()
-                                    SCLAlertView().showError("Error", subTitle: "\(error)")
-                                })
-                            }
+        let dictPost = [  "client_id": "KA0s5jblP3PEHOBwAIbXi9gcQ6RxjjbW",
+                          "email": txtEmail.text!,
+                          "password": txtPassword.text!,
+                          "connection":"Username-Password-Authentication"
+        ]
+        if(isValidEmail(testStr: txtEmail.text!)){
+            SVProgressHUD.show()
+            Networking().signUp(postDict: dictPost, success: { (dict) in
+                SVProgressHUD.dismiss()
+                DispatchQueue.main.async(execute: {
+                    SCLAlertView().showSuccess("Success", subTitle: "You have successfully created an account.")
+                    self.txtEmail.text = ""
+                    self.txtPassword.text = ""
+                })
+            }) { (message) in
+                SVProgressHUD.dismiss()
+                DispatchQueue.main.async(execute: {
+                    print(message)
+                    if(message["error"] != nil){
+                        SCLAlertView().showError("Error", subTitle: "\(message["error"] as! String)")
                     }
-                case .failure(let error):
-                    DispatchQueue.main.async(execute: {
-                        SVProgressHUD.dismiss()
-                        SCLAlertView().showError("Error", subTitle: "\(error)")
-                    })
-                    print(error)
-                    
-                }
+                    else{
+                        SCLAlertView().showError("Error", subTitle: "\(message["description"] as! String)")
+                    }
+                })
+            }
         }
-        
+        else{
+            SCLAlertView().showError("Error", subTitle: "Please enter a valid email address.")
+        }
+    }
+    
+    //MARK: CustomFunctions
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
     }
 }

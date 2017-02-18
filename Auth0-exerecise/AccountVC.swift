@@ -7,15 +7,16 @@
 //
 
 import UIKit
-import Auth0
 import SCLAlertView
 
 class AccountVC: UIViewController {
 
     @IBOutlet weak var imgAvatar: UIImageView!
     @IBOutlet weak var lblText: UILabel!
-    var userProfile: Profile!
+    @IBOutlet weak var btnLogout: UIButton!
     
+    var dictProfile: [String:AnyObject] = [:]
+    var expired:Bool = false
 
     //MARK: UIViewDelegates
     override func viewDidLoad() {
@@ -25,7 +26,22 @@ class AccountVC: UIViewController {
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationItem.title = "AccountVC"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-        self.userLogged()
+        if(!expired){
+            self.userLogged()
+        }
+        else{
+            lblText.isHidden = true
+            imgAvatar.isHidden = true
+            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.addButton("Logout") {
+                let defaults = UserDefaults.standard
+                defaults.removeObject(forKey: "access_token")
+                alertView.dismiss(animated: true, completion: nil)
+                self.performSegue(withIdentifier: "segueToNav", sender: self)
+            }
+            alertView.showError("Login", subTitle: "Your token has expired, please login.")
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -34,13 +50,15 @@ class AccountVC: UIViewController {
     //MARK: CustomFunction
     func userLogged(){
         self.navigationItem.setHidesBackButton(true, animated: false)
-        lblText.text = userProfile.email!
-        URLSession.shared.dataTask(with: userProfile.pictureURL, completionHandler: { data, response, error in
+        lblText.text = dictProfile["email"] as? String
+        let url = URL(string: dictProfile["picture"] as! String)
+        URLSession.shared.dataTask(with: url!, completionHandler: { data, response, error in
             DispatchQueue.main.async {
                 guard let data = data , error == nil else { return }
                 self.imgAvatar.image = UIImage(data: data)
             }
         }).resume()
+        
     }
     
     //MARK: IBActions

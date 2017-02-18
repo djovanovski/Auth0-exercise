@@ -4,6 +4,6 @@ use_frameworks!
 
 target ‘Auth0-exerecise’ do
     pod 'SVProgressHUD'
-    pod ‘Auth0’, '~> 1.2'
     pod ‘SCLAlertView’
+    pod 'Alamofire', '~> 4.0'
 end

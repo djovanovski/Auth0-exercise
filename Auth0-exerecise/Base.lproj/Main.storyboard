@@ -236,6 +236,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnLogout" destination="t4k-07-yJT" id="jTm-G8-434"/>
                         <outlet property="imgAvatar" destination="s7s-51-mm2" id="rTT-qW-Bo2"/>
                         <outlet property="lblText" destination="hc1-G8-ZdM" id="AzF-UY-JvT"/>
                         <segue destination="rrP-XD-CSX" kind="show" identifier="segueToNav" id="1WF-xO-bNE"/>
@@ -250,7 +251,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rrP-XD-CSX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="zko-C9-opK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="zko-C9-opK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

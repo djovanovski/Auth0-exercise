@@ -1,18 +1,18 @@
 PODS:
-  - Auth0 (1.2.0)
+  - Alamofire (4.3.0)
   - SCLAlertView (0.7.0)
   - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
-  - Auth0 (~> 1.2)
+  - Alamofire (~> 4.0)
   - SCLAlertView
   - SVProgressHUD
 
 SPEC CHECKSUMS:
-  Auth0: c5719a587c4f5fd78d8c16a26a6f0976f1718add
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: 8431ea8cbe7539dd4b883d28b79aef4475a73c82
+PODFILE CHECKSUM: aed672bfc922ef363b4985ec018848f3e6ec0ef8
 
 COCOAPODS: 1.2.0.beta.1
